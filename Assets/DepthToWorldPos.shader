@@ -22,7 +22,7 @@
         float4 wpos = mul(_InverseView, float4(vpos, 1));
 
         half4 source = tex2D(_MainTex, i.uv);
-        half3 color = pow(abs(sin(wpos.xyz * UNITY_PI * 4)), 20);
+        half3 color = pow(abs(cos(wpos.xyz * UNITY_PI * 4)), 20);
         return half4(lerp(source.rgb, color, _Intensity), source.a);
     }
 
