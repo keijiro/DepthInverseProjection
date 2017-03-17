@@ -10,6 +10,11 @@ public class DepthToWorldPos : MonoBehaviour
 
     Material _material;
 
+    void Update()
+    {
+        GetComponent<Camera>().depthTextureMode = DepthTextureMode.Depth;
+    }
+
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
         if (_material == null) {

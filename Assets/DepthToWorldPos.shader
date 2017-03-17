@@ -16,9 +16,21 @@
 
     fixed4 frag (v2f_img i) : SV_Target
     {
-        float vz = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, i.uv));
-        float2 p11_22 = float2(unity_CameraProjection._11, unity_CameraProjection._22);
-        float3 vpos = float3((i.uv * 2 - 1) / p11_22, -1) * vz;
+        const float2 p11_22 = float2(unity_CameraProjection._11, unity_CameraProjection._22);
+        const float2 p13_31 = float2(unity_CameraProjection._13, unity_CameraProjection._23);
+        const float isOrtho = unity_OrthoParams.w;
+        const float near = _ProjectionParams.y;
+        const float far = _ProjectionParams.z;
+
+        float d = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, i.uv);
+#if defined(UNITY_REVERSED_Z)
+        d = 1 - d;
+#endif
+        float zOrtho = lerp(near, far, d);
+        float zPers = near * far / lerp(far, near, d);
+        float vz = lerp(zPers, zOrtho, isOrtho);
+
+        float3 vpos = float3((i.uv * 2 - 1 - p13_31) / p11_22 * lerp(vz, 1, isOrtho), -vz);
         float4 wpos = mul(_InverseView, float4(vpos, 1));
 
         half4 source = tex2D(_MainTex, i.uv);
