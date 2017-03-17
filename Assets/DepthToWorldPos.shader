@@ -23,8 +23,11 @@
         const float far = _ProjectionParams.z;
 
         float d = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, i.uv);
-        float zOrtho = lerp(far, near, d);
-        float zPers = near * far / lerp(near, far, d);
+#if defined(UNITY_REVERSED_Z)
+        d = 1 - d;
+#endif
+        float zOrtho = lerp(near, far, d);
+        float zPers = near * far / lerp(far, near, d);
         float vz = lerp(zPers, zOrtho, isOrtho);
 
         float3 vpos = float3((i.uv * 2 - 1 - p13_31) / p11_22 * lerp(vz, 1, isOrtho), -vz);
