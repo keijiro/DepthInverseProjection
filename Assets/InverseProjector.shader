@@ -93,10 +93,9 @@ Shader "Hidden/InverseProjector"
         {
             CGPROGRAM
 
+            #pragma target 3.5
             #pragma vertex Vertex
             #pragma fragment Fragment
-
-            #pragma target 3.5
 
             half4 Fragment(Varyings input) : SV_Target
             {
@@ -112,9 +111,9 @@ Shader "Hidden/InverseProjector"
         {
             CGPROGRAM
 
+            #pragma target 3.5
             #pragma vertex Vertex
             #pragma fragment Fragment
-            #pragma target 3.5
 
             float4x4 _InverseView;
 
