@@ -12,9 +12,9 @@ camera depth texture]) into the view/world space in Unity.
 Notes
 -----
 
-- It uses [DrawProcedural] and [SV_VertexID semantics] in the vertex shader,
-  so that it requires [shader compilation target] 3.5 at minimum. This is not
-  essential but used to keep code simple and clean.
+- It uses [DrawProcedural] and [SV_VertexID semantics] in the vertex shader to
+  draw a full screen triangle, so that it requires [shader compilation target]
+  3.5 at minimum. This is not essential but used to keep code simpler.
 - Note that the view space matches to the OpenGL convention (camera forward
   == negative Z).
 
