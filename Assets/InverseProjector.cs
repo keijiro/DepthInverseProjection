@@ -1,13 +1,16 @@
-﻿using UnityEngine;
+﻿// Depth to view/world space inverse projection example
+using UnityEngine;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(Camera))]
-public class DepthToWorldPos : MonoBehaviour
+public class InverseProjector : MonoBehaviour
 {
-    [Range(0, 1)] public float _intensity = 0.5f;
+    enum Target { ViewSpace, WorldSpace }
 
-    [SerializeField] Shader _shader;
+    [SerializeField] Target _target = Target.ViewSpace;
+    [SerializeField, Range(0, 1)] float _intensity = 0.5f;
 
+    [SerializeField, HideInInspector] Shader _shader;
     Material _material;
 
     void Update()
@@ -17,7 +20,8 @@ public class DepthToWorldPos : MonoBehaviour
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        if (_material == null) {
+        if (_material == null)
+        {
             _material = new Material(_shader);
             _material.hideFlags = HideFlags.DontSave;
         }
@@ -26,6 +30,7 @@ public class DepthToWorldPos : MonoBehaviour
         _material.SetMatrix("_InverseView", matrix);
         _material.SetFloat("_Intensity", _intensity);
 
-        Graphics.Blit(source, destination, _material);
+        var pass = (_target == Target.ViewSpace) ? 0 : 1;
+        Graphics.Blit(source, destination, _material, pass);
     }
 }
