@@ -9,20 +9,12 @@ camera depth texture]) into the view/world space in Unity.
 [the camera depth texture]:
     https://docs.unity3d.com/Manual/SL-CameraDepthTexture.html
 
-Notes
------
+System Requirements
+-------------------
 
-- It uses [DrawProcedural] and [SV_VertexID semantics] in the vertex shader to
-  draw a full screen triangle, so that it requires [shader compilation target]
-  3.5 at minimum. This is not essential but used to keep code simpler.
-- Note that the view space matches to the OpenGL convention (camera forward
-  == negative Z).
+- Unity 2018.2 or later
 
-[DrawProcedural]:
-    https://docs.unity3d.com/ScriptReference/Graphics.DrawProcedural.html
+License
+-------
 
-[SV_VertexID semantics]:
-    https://msdn.microsoft.com/en-us/library/windows/desktop/bb509647(v=vs.85).aspx
-
-[shader compilation target]:
-    https://docs.unity3d.com/Manual/SL-ShaderCompileTargets.html
+Public domain
