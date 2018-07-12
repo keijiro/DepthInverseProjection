@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
 [System.Serializable]
-[PostProcess(typeof(InverseProjectionRenderer), PostProcessEvent.BeforeTransparent, "Test/Inverse Projection")]
+[PostProcess(typeof(InverseProjectionRenderer), PostProcessEvent.AfterStack, "Test/Inverse Projection")]
 public sealed class InverseProjection : PostProcessEffectSettings
 {
     public enum Target { ViewSpace, WorldSpace }
