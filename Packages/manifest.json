@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "com.unity.package-manager-ui": "1.9.11",
+    "com.unity.render-pipelines.high-definition": "2.0.5-preview",
+    "com.unity.render-pipelines.lightweight": "2.0.5-preview",
+    "com.unity.modules.imgui": "1.0.0",
+    "com.unity.modules.particlesystem": "1.0.0",
+    "com.unity.modules.physics": "1.0.0",
+    "com.unity.modules.ui": "1.0.0",
+    "com.unity.modules.vr": "1.0.0"
+  }
+}
