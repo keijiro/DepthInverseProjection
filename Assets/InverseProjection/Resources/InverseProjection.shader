@@ -1,9 +1,8 @@
 Shader "Hidden/Test/InverseProjection"
 {
     HLSLINCLUDE
-
-    #include "PostProcessing/Shaders/StdLib.hlsl"
-    #include "PostProcessing/Shaders/Colors.hlsl"
+    #include "Packages/com.unity.postprocessing/PostProcessing/Shaders/StdLib.hlsl"
+    #include "Packages/com.unity.postprocessing/PostProcessing/Shaders/Colors.hlsl"    
 
     #define EXCLUDE_FAR_PLANE
 
