@@ -14,7 +14,7 @@ camera depth texture]) into the view/world space in Unity.
 System Requirements
 -------------------
 
-- Unity 2018.2 or later
+- Unity 2018.4 or later
 
 License
 -------
