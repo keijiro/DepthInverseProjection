@@ -1,9 +1,8 @@
 Shader "Hidden/Test/InverseProjection"
 {
     HLSLINCLUDE
-
-    #include "PostProcessing/Shaders/StdLib.hlsl"
-    #include "PostProcessing/Shaders/Colors.hlsl"
+    #include "Packages/com.unity.postprocessing/PostProcessing/Shaders/StdLib.hlsl"
+    #include "Packages/com.unity.postprocessing/PostProcessing/Shaders/Colors.hlsl"    
 
     #define EXCLUDE_FAR_PLANE
 
@@ -25,24 +24,29 @@ Shader "Hidden/Test/InverseProjection"
     Varyings Vertex(uint vertexID : SV_VertexID)
     {
         // Render settings
+        Varyings o;
         float far = _ProjectionParams.z;
         float2 orthoSize = unity_OrthoParams.xy;
         float isOrtho = unity_OrthoParams.w; // 0: perspective, 1: orthographic
-
+                      
         // Vertex ID -> clip space vertex position
-        float x = (vertexID != 1) ? -1 : 3;
-        float y = (vertexID == 2) ? -3 : 1;
+        float y = (vertexID != 1) ? -1 : 3;
+        float x = (vertexID == 2) ? -3 : 1;
         float3 vpos = float3(x, y, 1.0);
 
         // Perspective: view space vertex position of the far plane
         float3 rayPers = mul(unity_CameraInvProjection, vpos.xyzz * far).xyz;
 
         // Orthographic: view space vertex position
-        float3 rayOrtho = float3(orthoSize * vpos.xy, 0);
+        float3 rayOrtho = float3(orthoSize * vpos.xy, 0);        
 
-        Varyings o;
+    #if UNITY_UV_STARTS_AT_TOP
         o.position = float4(vpos.x, -vpos.y, 1, 1);
+    #else
+        o.position = float4(vpos.x, vpos.y, 1, 1);
+    #endif  
         o.texcoord = (vpos.xy + 1) / 2;
+
         o.ray = lerp(rayPers, rayOrtho, isOrtho);
         return o;
     }

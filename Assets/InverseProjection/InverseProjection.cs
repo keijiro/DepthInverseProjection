@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
 [System.Serializable]
@@ -28,11 +28,16 @@ public sealed class InverseProjectionRenderer : PostProcessEffectRenderer<Invers
         return DepthTextureMode.Depth;
     }
 
+    public override void Init()
+    {
+        Camera.main.depthTextureMode = DepthTextureMode.Depth;
+    }
+
     public override void Render(PostProcessRenderContext context)
     {
         var cmd = context.command;
         cmd.BeginSample("Inverse Projection");
-
+        
         var sheet = context.propertySheets.Get(Shader.Find("Hidden/Test/InverseProjection"));
         sheet.properties.SetFloat(ShaderIDs.Opacity, settings.opacity);
         sheet.properties.SetMatrix(ShaderIDs.InverseView, context.camera.cameraToWorldMatrix);
